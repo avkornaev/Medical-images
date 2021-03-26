@@ -40,9 +40,11 @@ net = fitnet(hiddenLayersSizes);
 % net.divideParam.valRatio = 1/3;
 % net.divideParam.testRatio = 1/3;
 
-
-[trainInd,valInd,testInd] = divideind(nAll,[1:nTrain],[(nTrain+1):(nTrain+1)+nValidation],[(nTrain+1)+nValidation+1:(nTrain+1)+nValidation+1+nTest]);
 net.divideFcn='divideind';
+[trainInd,valInd,testInd] = divideind(nAll,[1:nTrain],[(nTrain+1):(nTrain+1)+nValidation],[(nTrain+1)+nValidation+1:(nTrain+1)+nValidation+1+nTest]);
+net.divideParam.trainInd=trainInd;
+net.divideParam.valInd=valInd;
+net.divideParam.testInd=testInd;
 
 %The ANN settings
 %net.trainParam.epochs = maxEpochs; 

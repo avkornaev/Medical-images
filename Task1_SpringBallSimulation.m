@@ -6,41 +6,37 @@ close all
 
 %% 1. Initialisations and Settings
 X0=[.5 .1 .2];%initial position of the ball for train validation and test
+XScale=1;
 g=9.81;%free fall acceleration
 k=[1e3 9e2 1.1e3];%stiffnes for train validation and test
 m=1;%mass
-totalTime=1e0*[1 1 1];
+totalTime=1e1*[1 1 1];
 
-N=1000;%number of time steps
+N=10;%number of time steps
 imsize=[224 224];%image size
-nD=7;
+nD=2;
 
-
-cd 'G:\springBall2'
+cd 
 mDir=cd;%main directory
-imdir='images';%subdirectory for images
+imdirTrain='imagesTrain';%subdirectory for images
+imdirValidation='imagesValidation';
+imdirTest='imagesTest';
 
-generateImages='no';%'yes','no'
+generateImages='yes';%'yes','no'
+
 %% 2.Simulation
-
-
 switch generateImages
     case 'yes'
-        mkdir(imdir)%create the folder
-        figure('Color','w')
-        cd(imdir)
-        for i=1:N
-            [i N]
-            plot(X(i),'or','MarkerSize',20,'MarkerFaceColor','r')
-            axis([0 2 -X0 X0])
-            saveas(gcf,['img',num2str(i),'.png'])
-            img=imread(['img',num2str(i),'.png']);
-            img=imresize(img,imsize);
-            img=imcrop
-            imwrite(img,['img',num2str(i),'.png'])
-            %imwrite('ScreenSize',[224 224])
-        end
-        cd(mDir)    
+        mkdir(imdirTrain)%create the folder
+        mkdir(imdirValidation)%create the folder
+        mkdir(imdirTest)%create the folder
+        % Dataset for CNN net
+        %train
+        [targetsTrain,tTrain]=imgDatasetGenerator(m,k(1),X0(1),N,nD,totalTime(1),imdirTrain,mDir,XScale,imsize);
+        %validation
+        [targetsValidation,tValidation]=imgDatasetGenerator(m,k(2),X0(2),N,nD,totalTime(2),imdirValidation,mDir,XScale,imsize);
+        %test
+        [targetsTest,tTest]=imgDatasetGenerator(m,k(3),X0(3),N,nD,totalTime(3),imdirTest,mDir,XScale,imsize);
     case 'no'
         % Dataset for FC net
         %train
