@@ -9,14 +9,14 @@ X0=[.5 .1 .2];%initial position of the ball for train validation and test
 g=9.81;%free fall acceleration
 k=[1e3 9e2 1.1e3];%stiffnes for train validation and test
 m=1;%mass
-totalTime=[1 1 1];
+totalTime=1e0*[1 1 1];
 
-N=224;%number of time steps
+N=1000;%number of time steps
 imsize=[224 224];%image size
-nD=3;
+nD=7;
 
 
-cd 'E:\work\21_AI4MMR\falling ball'
+cd 'G:\springBall2'
 mDir=cd;%main directory
 imdir='images';%subdirectory for images
 

@@ -10,5 +10,6 @@ for i=1:N-(nD-1)
     inputs(i,:)=X(i:i+(nD-1));
     targets(i,1)=V(i);
 end
+t=t(1:end-nD+1);
 end
 
